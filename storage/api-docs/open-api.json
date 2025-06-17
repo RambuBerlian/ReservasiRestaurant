@@ -1,737 +1,508 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Food Reservation API",
-    "description": "Dokumentasi API untuk autentikasi, detail reservasi makanan, dan pesanan makanan.",
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://localhost:8000/api",
-      "description": "Server Lokal"
-    }
-  ],
-  "paths": {
-    "/login": {
-      "post": {
-        "summary": "Otentikasi Pengguna",
-        "description": "Endpoint untuk melakukan otentikasi menggunakan email dan password.",
-        "tags": ["Auth"],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "admin@example.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "admin123"
-                  }
-                },
-                "required": ["email", "password"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Login berhasil.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "success"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": {
-                          "$ref": "#/components/schemas/User"
-                        },
-                        "token": {
-                          "type": "string",
-                          "example": "3|bGozWTca48Tl9hNWJ62ciQO4bnbPRNOldiy49Uma3dc8c6e5"
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Dokumentasi Sistem Reservasi Tempat Makan",
+        "description": "Dokumentasi API untuk sistem reservasi tempat makan",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user dan dapatkan token",
+                "operationId": "44212a9096e4b09358281e9ec8a0701d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "admin@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "admin321"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
-                      }
                     }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Kredensial tidak valid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid credentials"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/detail-reservasi": {
-      "get": {
-        "summary": "Ambil semua detail reservasi makanan",
-        "tags": ["Detail Reservasi"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Daftar detail reservasi makanan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DetailReservasi"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Tambah detail reservasi makanan baru",
-        "tags": ["Detail Reservasi"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "tanggal_waktu": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2024-01-15T12:30:00"
-                  },
-                  "lokasi": {
-                    "type": "string",
-                    "example": "Restoran Padang Sederhana"
-                  },
-                  "jenis_layanan": {
-                    "type": "string",
-                    "example": "Catering"
-                  }
                 },
-                "required": ["tanggal_waktu", "lokasi", "jenis_layanan"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Detail reservasi berhasil ditambahkan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Detail reservasi berhasil ditambahkan."
+                "responses": {
+                    "200": {
+                        "description": "Login sukses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "user": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Admin"
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "admin@gmail.com"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "1|abcde12345"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
-                    "data": {
-                      "$ref": "#/components/schemas/DetailReservasi"
+                    "401": {
+                        "description": "Invalid credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid credentials"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                  }
                 }
-              }
             }
-          }
-        }
-      }
-    },
-    "/detail-reservasi/{id}": {
-      "get": {
-        "summary": "Ambil detail reservasi berdasarkan ID",
-        "tags": ["Detail Reservasi"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/IdInPath"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Detail reservasi ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DetailReservasi"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Detail reservasi tidak ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Detail reservasi tidak ditemukan."
+        },
+        "/api/detail-reservasi": {
+            "get": {
+                "tags": [
+                    "Detail Reservasi"
+                ],
+                "summary": "Tampilkan semua detail reservasi",
+                "operationId": "e1f14198f4c2be983cef62d806cfb22c",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil menampilkan semua data detail reservasi"
                     }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Update detail reservasi makanan",
-        "tags": ["Detail Reservasi"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/IdInPath"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "tanggal_waktu": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2024-01-15T13:00:00"
-                  },
-                  "lokasi": {
-                    "type": "string",
-                    "example": "Warung Makan Bu Sari"
-                  },
-                  "jenis_layanan": {
-                    "type": "string",
-                    "example": "Delivery"
-                  }
                 },
-                "required": ["tanggal_waktu", "lokasi", "jenis_layanan"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Detail reservasi berhasil diperbarui",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Detail reservasi berhasil diperbarui."
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/DetailReservasi"
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Detail reservasi tidak ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Detail reservasi tidak ditemukan."
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Detail Reservasi"
+                ],
+                "summary": "Buat detail reservasi baru",
+                "operationId": "b037c3851792e31d24d2f23ac14f5767",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tanggal_waktu",
+                                    "lokasi",
+                                    "jenis_layanan"
+                                ],
+                                "properties": {
+                                    "tanggal_waktu": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-06-17 19:00:00"
+                                    },
+                                    "lokasi": {
+                                        "type": "string",
+                                        "example": "Lantai 2, Meja 5"
+                                    },
+                                    "jenis_layanan": {
+                                        "type": "string",
+                                        "example": "Dine In"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Hapus detail reservasi",
-        "tags": ["Detail Reservasi"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/IdInPath"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Detail reservasi berhasil dihapus",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Detail reservasi berhasil dihapus."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Detail reservasi tidak ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Detail reservasi tidak ditemukan."
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/pesanan-makanan": {
-      "get": {
-        "summary": "Ambil semua pesanan makanan",
-        "tags": ["Pesanan Makanan"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Daftar pesanan makanan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PesananMakanan"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "summary": "Tambah pesanan makanan baru",
-        "tags": ["Pesanan Makanan"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "daftar_menu": {
-                    "type": "string",
-                    "example": "Nasi Gudeg, Ayam Bakar, Es Teh"
-                  },
-                  "jumlah_menu": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "example": 2
-                  },
-                  "catatan_tambahan": {
-                    "type": "string",
-                    "nullable": true,
-                    "example": "Pedas sedang, tanpa sambal"
-                  }
                 },
-                "required": ["daftar_menu", "jumlah_menu"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Pesanan berhasil ditambahkan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Pesanan berhasil ditambahkan."
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/PesananMakanan"
+                "responses": {
+                    "201": {
+                        "description": "Berhasil membuat detail reservasi"
                     }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/pesanan-makanan/{id}": {
-      "get": {
-        "summary": "Ambil pesanan makanan berdasarkan ID",
-        "tags": ["Pesanan Makanan"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/IdInPath"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Pesanan makanan ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PesananMakanan"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Pesanan tidak ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Pesanan tidak ditemukan."
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Update pesanan makanan",
-        "tags": ["Pesanan Makanan"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/IdInPath"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "daftar_menu": {
-                    "type": "string",
-                    "example": "Nasi Rendang, Sate Ayam, Es Jeruk"
-                  },
-                  "jumlah_menu": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "example": 3
-                  },
-                  "catatan_tambahan": {
-                    "type": "string",
-                    "nullable": true,
-                    "example": "Tanpa cabai, extra lalapan"
-                  }
                 },
-                "required": ["daftar_menu", "jumlah_menu"]
-              }
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "Pesanan berhasil diperbarui",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Pesanan berhasil diperbarui."
+        "/api/detail-reservasi/{id}": {
+            "get": {
+                "tags": [
+                    "Detail Reservasi"
+                ],
+                "summary": "Tampilkan detail reservasi berdasarkan ID",
+                "operationId": "238162759086ef2c9679047d1b56a6d9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID dari detail reservasi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail reservasi ditemukan"
                     },
-                    "data": {
-                      "$ref": "#/components/schemas/PesananMakanan"
+                    "404": {
+                        "description": "Detail reservasi tidak ditemukan"
                     }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Pesanan tidak ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Pesanan tidak ditemukan."
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Hapus pesanan makanan",
-        "tags": ["Pesanan Makanan"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/IdInPath"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Pesanan berhasil dihapus",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Pesanan berhasil dihapus."
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Detail Reservasi"
+                ],
+                "summary": "Perbarui detail reservasi",
+                "operationId": "de1372886126d79d370719b5571d69ab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID dari detail reservasi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Pesanan tidak ditemukan",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Pesanan tidak ditemukan."
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tanggal_waktu",
+                                    "lokasi",
+                                    "jenis_layanan"
+                                ],
+                                "properties": {
+                                    "tanggal_waktu": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-06-17 20:00:00"
+                                    },
+                                    "lokasi": {
+                                        "type": "string",
+                                        "example": "Lantai 1, Meja 8"
+                                    },
+                                    "jenis_layanan": {
+                                        "type": "string",
+                                        "example": "Take Away"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                  }
-                }
-              }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil memperbarui detail reservasi"
+                    },
+                    "404": {
+                        "description": "Detail reservasi tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Detail Reservasi"
+                ],
+                "summary": "Hapus detail reservasi berdasarkan ID",
+                "operationId": "7f93d0243c8cd1e32cc428477e46df2c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID dari detail reservasi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Berhasil menghapus detail reservasi"
+                    },
+                    "404": {
+                        "description": "Detail reservasi tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
-          }
+        },
+        "/api/pesanan-makanan": {
+            "get": {
+                "tags": [
+                    "Pesanan Makanan"
+                ],
+                "summary": "Tampilkan semua pesanan makanan",
+                "operationId": "a1e1128264949c08cc7deb1a1347ea7e",
+                "responses": {
+                    "200": {
+                        "description": "List pesanan makanan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Pesanan Makanan"
+                ],
+                "summary": "Tambah pesanan makanan",
+                "operationId": "36bc838a6cc38eba92f339abc3709a80",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "daftar_menu",
+                                    "jumlah_menu"
+                                ],
+                                "properties": {
+                                    "daftar_menu": {
+                                        "type": "string",
+                                        "example": "Nasi Goreng"
+                                    },
+                                    "jumlah_menu": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "catatan_tambahan": {
+                                        "type": "string",
+                                        "example": "Tanpa pedas"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Pesanan berhasil ditambahkan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/pesanan-makanan/{id}": {
+            "get": {
+                "tags": [
+                    "Pesanan Makanan"
+                ],
+                "summary": "Tampilkan detail pesanan",
+                "operationId": "4da6913e0de3554c6fe147b2ff84447e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID pesanan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail pesanan"
+                    },
+                    "404": {
+                        "description": "Pesanan tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Pesanan Makanan"
+                ],
+                "summary": "Update pesanan makanan",
+                "operationId": "d02fbeaaf151aaf843d7dc5116bd0d36",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID pesanan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "daftar_menu",
+                                    "jumlah_menu"
+                                ],
+                                "properties": {
+                                    "daftar_menu": {
+                                        "type": "string",
+                                        "example": "Ayam Bakar"
+                                    },
+                                    "jumlah_menu": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "catatan_tambahan": {
+                                        "type": "string",
+                                        "example": "Tambah sambal"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pesanan berhasil diperbarui"
+                    },
+                    "404": {
+                        "description": "Pesanan tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Pesanan Makanan"
+                ],
+                "summary": "Hapus pesanan makanan",
+                "operationId": "8f35d11cdbe4145ee5514acc3fdd4b40",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID pesanan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pesanan berhasil dihapus"
+                    },
+                    "404": {
+                        "description": "Pesanan tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
-      }
-    }
-  
-  },
-  "components": {
-    "schemas": {
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "example": 1
-          },
-          "name": {
-            "type": "string",
-            "example": "John Doe"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "example": "john@example.com"
-          },
-          "email_verified_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true,
-            "example": null
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-01-01T10:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-01-01T10:00:00Z"
-          }
-        }
-      },
-      "DetailReservasi": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "example": 1
-          },
-          "tanggal_waktu": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-01-15T12:30:00Z"
-          },
-          "lokasi": {
-            "type": "string",
-            "example": "Restoran Padang Sederhana"
-          },
-          "jenis_layanan": {
-            "type": "string",
-            "example": "Catering"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-01-01T10:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-01-01T10:00:00Z"
-          }
-        }
-      },
-      "PesananMakanan": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "example": 1
-          },
-          "daftar_menu": {
-            "type": "string",
-            "example": "Nasi Gudeg, Ayam Bakar, Es Teh"
-          },
-          "jumlah_menu": {
-            "type": "integer",
-            "example": 2
-          },
-          "catatan_tambahan": {
-            "type": "string",
-            "nullable": true,
-            "example": "Pedas sedang, tanpa sambal"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-01-01T10:00:00Z"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2024-01-01T10:00:00Z"
-          }
-        }
-      }
     },
-    "parameters": {
-      "IdInPath": {
-        "name": "id",
-        "in": "path",
-        "description": "ID resource yang akan dioperasi",
-        "required": true,
-        "schema": {
-          "type": "integer",
-          "minimum": 1,
-          "example": 1
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
         }
-      }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "description": "JWT token yang diperoleh dari endpoint /login"
-      }
-    }
-  },
-  "tags": [
-    {
-      "name": "Auth",
-      "description": "Operasi autentikasi pengguna"
-    },
-    {
-      "name": "Detail Reservasi",
-      "description": "Operasi CRUD untuk detail reservasi makanan"
-    },
-    {
-      "name": "Pesanan Makanan",
-      "description": "Operasi CRUD untuk pesanan makanan"
-    }
-  ]
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Detail Reservasi",
+            "description": "Detail Reservasi"
+        },
+        {
+            "name": "Pesanan Makanan",
+            "description": "Pesanan Makanan"
+        }
+    ]
 }
